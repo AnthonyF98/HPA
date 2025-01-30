@@ -1,0 +1,70 @@
+---
+title: "Sleep/Productivity A1"
+author: "Anthony Fernandez"
+date: "2025-01-30"
+output: html_document
+---
+
+```{r message=FALSE, warning=FALSE}
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(lmtest)
+library(car)
+
+# Read the data
+df <- read.csv("Personal Metric Template.csv")
+
+# View the structure of the dataset
+str(df)
+
+```
+
+```{r}
+
+df <- na.omit(df) 
+df$Date <- as.Date(df$Date, format="%Y/%m/%d")
+df$Weekday <- as.factor(weekdays(df$Date))  # Convert to factor
+
+
+
+model <- lm(Productivity..Cal. ~ Wake.Up + Sleep.Hours + Stress + Steps + Weekday , data=df)
+
+summary(model)
+
+```
+
+```{r message=FALSE, warning=FALSE}
+# Load additional library
+library(ggcorrplot)
+
+# Compute correlation matrix (excluding non-numeric columns)
+cor_matrix <- cor(df[, c("Wake.Up", "Sleep.Hours", "Stress", "Steps", "Productivity..Cal.")], use="complete.obs")
+
+# Plot correlation heatmap with correct method
+ggcorrplot(cor_matrix, method="square", type="lower", lab=TRUE, lab_size=3, colors = c("red", "white", "blue")) +
+  ggtitle("Correlation Heatmap of Key Metrics") +
+  theme_minimal()
+
+```
+
+```{r}
+ggplot(df, aes(x=Weekday, y=Productivity..Cal., fill=Weekday)) +
+  geom_boxplot(alpha=0.7) +
+  scale_fill_brewer(palette="Set1") +  # Use a colorful palette
+  labs(title="Productivity Across Different Days of the Week",
+       x="Day of the Week",
+       y="Productivity (Cal)") +
+  theme_minimal() +
+  theme(legend.position="none")  # Remove legend for clarity
+```
+```{r}
+ggplot(df, aes(x=Wake.Up, y=Productivity..Cal.)) +
+  geom_point(color="orange", alpha=0.7) +  # Scatter points
+  geom_smooth(method="lm", color="orange", fill="orange", alpha=0.2) +  # Regression line
+  labs(title="Sleep Quality vs. Productivity",
+       x="Sleep Quality (Wake Up Score)",
+       y="Productivity (Cal)") +
+  theme_minimal()
+```
+
