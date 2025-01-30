@@ -68,3 +68,4 @@ ggplot(df, aes(x=Wake.Up, y=Productivity..Cal.)) +
   theme_minimal()
 ```
 
+My findings from this data show that better sleep quality tends to lead to higher productivity, especially on weekdays. The scatter plot suggests that higher wake-up scores correlate with burning more calories, meaning when sleep is better, I am more productive. Interestingly, productivity levels seem to be higher on weekdays compared to weekends, my guess is that this is due to more structured routines during the week. There’s also a negative relationship between stress and productivity, and stress levels might be lower on weekends, but so is productivity. Another interesting trend is that taking more steps throughout the day is linked to better productivity, so staying active might help performance (calories burned) no matter what day it is.
