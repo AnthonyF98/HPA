@@ -11,6 +11,7 @@ library(ggplot2)
 library(dplyr)
 library(lmtest)
 library(car)
+library(ggpubr)
 
 # Read the data
 df <- read.csv("Personal Metric Template.csv")
@@ -59,6 +60,19 @@ ggplot(df, aes(x=Weekday, y=Productivity..Cal., fill=Weekday)) +
   theme(legend.position="none")  # Remove legend for clarity
 ```
 ```{r}
+ggplot(df, aes(x=Weekday, y=Sleep.Hours, fill=Weekday)) +
+  geom_boxplot(alpha=0.7) +
+  scale_fill_brewer(palette="Set1") +  # Use a colorful palette
+  labs(title="Sleep Hours Across Different Days of the Week",
+       x="Day of the Week",
+       y="Sleep Hours") +
+  theme_minimal() +
+  theme(legend.position="none") 
+```
+
+
+
+```{r}
 ggplot(df, aes(x=Wake.Up, y=Productivity..Cal.)) +
   geom_point(color="orange", alpha=0.7) +  # Scatter points
   geom_smooth(method="lm", color="orange", fill="orange", alpha=0.2) +  # Regression line
@@ -69,12 +83,32 @@ ggplot(df, aes(x=Wake.Up, y=Productivity..Cal.)) +
 ```
 
 ```{r}
+cor_value <- cor(df$Stress, df$Wake.Up, use = "complete.obs")
+
+
+ggplot(df, aes(x = Stress, y = Wake.Up, color = Stress, size = Sleep.Hours)) +
+  geom_point(alpha = 0.8) +
+  geom_smooth(method = "lm", color = "black", linetype = "dashed", se = FALSE) +
+  scale_color_gradient(low = "blue", high = "red") +
+  labs(title = "How Stress Affects Wake Up Score",
+       subtitle = paste("Correlation:", round(cor_value, 2)),
+       x = "Stress Level",
+       y = "Wake Up Score",
+       color = "Stress Level",
+       size = "Sleep Hours") +
+  theme_minimal() +
+  theme(legend.position = "right")
+```
+
+
+
+```{r}
 ggplot(df, aes(x=Weekday, y=Stress, fill=Weekday)) +
   geom_boxplot(alpha=0.7) +
   scale_fill_brewer(palette="Set1") +  # Use a colorful palette
-  labs(title="Productivity Across Different Days of the Week",
+  labs(title="Stress Across Different Days of the Week",
        x="Day of the Week",
-       y="Productivity (Cal)") +
+       y="Stress") +
   theme_minimal() +
   theme(legend.position="none")
 ```
