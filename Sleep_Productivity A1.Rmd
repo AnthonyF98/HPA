@@ -29,7 +29,7 @@ df$Weekday <- as.factor(weekdays(df$Date))  # Convert to factor
 
 
 
-model <- lm(Productivity..Cal. ~ Wake.Up + Sleep.Hours + Stress + Steps + Weekday , data=df)
+model <- lm(Wake.Up ~ Productivity..Cal. + Sleep.Hours + Stress + Steps + Weekday , data=df)
 
 summary(model)
 
@@ -59,6 +59,7 @@ ggplot(df, aes(x=Weekday, y=Productivity..Cal., fill=Weekday)) +
   theme_minimal() +
   theme(legend.position="none")  # Remove legend for clarity
 ```
+
 ```{r}
 ggplot(df, aes(x=Weekday, y=Sleep.Hours, fill=Weekday)) +
   geom_boxplot(alpha=0.7) +
