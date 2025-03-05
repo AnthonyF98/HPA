@@ -84,6 +84,17 @@ ggplot(df, aes(x=Wake.Up, y=Productivity..Cal.)) +
 ```
 
 ```{r}
+ggplot(df, aes(x=Wake.Up, y=Stress)) +
+  geom_point(color="red", alpha=0.7) +  # Scatter points
+  geom_smooth(method="lm", color="red", fill="red", alpha=0.2) +  # Regression line
+  labs(title="Sleep Quality vs. Stress",
+       x="Sleep Quality (Wake Up Score)",
+       y="Stress Score") +
+  theme_minimal()
+```
+
+
+```{r warning=FALSE}
 cor_value <- cor(df$Stress, df$Wake.Up, use = "complete.obs")
 
 
