@@ -43,7 +43,7 @@ library(ggcorrplot)
 cor_matrix <- cor(df[, c("Wake.Up", "Sleep.Hours", "Stress", "Steps", "Productivity..Cal.")], use="complete.obs")
 
 # Plot correlation heatmap with correct method
-ggcorrplot(cor_matrix, method="square", type="lower", lab=TRUE, lab_size=3, colors = c("red", "white", "blue")) +
+ggcorrplot(cor_matrix, method="square", type="lower", lab=TRUE, lab_size=4, colors = c("red", "white", "blue")) +
   ggtitle("Correlation Heatmap of Key Metrics") +
   theme_minimal()
 
