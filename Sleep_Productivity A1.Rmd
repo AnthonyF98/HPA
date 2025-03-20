@@ -92,6 +92,15 @@ ggplot(df, aes(x=Wake.Up, y=Stress)) +
        y="Stress Score") +
   theme_minimal()
 ```
+```{r}
+ggplot(df, aes(x=Productivity..Cal., y=Steps)) +
+  geom_point(color="yellow", alpha=0.7) +  # Scatter points
+  geom_smooth(method="lm", color="yellow", fill="yellow", alpha=0.2) +  # Regression line
+  labs(title="Calories Burned vs Steps Taken",
+       x="Calories",
+       y="Steps") +
+  theme_minimal()
+```
 
 
 ```{r warning=FALSE}
